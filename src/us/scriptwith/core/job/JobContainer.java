@@ -6,11 +6,11 @@ import java.util.Comparator;
 import java.util.List;
 
 /**
- * Author: Aadil Farouk
+ * Author: Saleh Jafar
  * Date: 6/17/13
  * Time: 3:59 PM
  *
- * COPYRIGHT 2013, AADIL FAROUK
+ * COPYRIGHT 2013, Saleh Jafar
  */
 
 /**
