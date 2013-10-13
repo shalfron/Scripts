@@ -7,11 +7,11 @@ import java.awt.*;
 import java.text.DecimalFormat;
 
 /**
- * Author: Saleh Jafar
+ * Author: Aadil Farouk
  * Date: 8/22/13
  * Time: 10:41 PM
  * <p/>
- * COPYRIGHT 2013, Saleh Jafar
+ * COPYRIGHT 2013, AADIL FAROUK
  */
 
 public class Painter {

@@ -4,11 +4,11 @@ import org.powerbot.script.methods.MethodProvider;
 import us.scriptwith.core.script.Script;
 
 /**
- * Author: Saleh Jafar
+ * Author: Aadil Farouk
  * Date: 8/23/13
  * Time: 3:57 PM
  *
- * COPYRIGHT 2013, Saleh Jafar
+ * COPYRIGHT 2013, AADIL FAROUK
  */
 
 /**

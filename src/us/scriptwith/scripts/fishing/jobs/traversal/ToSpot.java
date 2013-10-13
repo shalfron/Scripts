@@ -3,7 +3,7 @@ package us.scriptwith.scripts.fishing.jobs.traversal;
 import org.powerbot.script.wrappers.Actor;
 import org.powerbot.script.wrappers.Npc;
 import org.powerbot.script.wrappers.TilePath;
-import us.scriptwith.core.job.Job;
+import us.scriptwith.core.script.generic.Traversal;
 import us.scriptwith.scripts.fishing.Fishing;
 
 /**
@@ -11,12 +11,9 @@ import us.scriptwith.scripts.fishing.Fishing;
  * Time: 3:12 PM
  */
 
-public class ToSpot extends Job<Fishing> {
-    private final TilePath path;
-
+public class ToSpot extends Traversal<Fishing> {
     public ToSpot(Fishing script, TilePath path) {
-        super(script);
-        this.path = path;
+        super(script, path);
     }
 
     @Override
@@ -32,17 +29,5 @@ public class ToSpot extends Job<Fishing> {
                 && ctx.backpack.select().count() < 28
                 && (!fish.isValid() || !fish.isOnScreen())
                 && (interacting == null || !interacting.isValid());
-    }
-
-    @Override
-    public void execute() {
-        final Npc fish = ctx.npcs.select().id(script.fish.getSpotIds()).nearest().first().poll();
-        if (fish.isValid()) {
-            ctx.movement.stepTowards(fish);
-            ctx.camera.turnTo(fish);
-            sleep(350, 500);
-        } else if (path.randomize(2, 2).traverse() || ctx.movement.stepTowards(path.getEnd())) {
-            sleep(350, 500);
-        }
     }
 }

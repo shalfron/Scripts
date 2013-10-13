@@ -38,18 +38,24 @@ public enum Location {
     ),
     KARAMJA(new Fish[]{Fish.TUNA, Fish.LOBSTER, Fish.SWORDFISH},
             new Tile[]{
-                    new Tile(2852, 3144, 0),
-                    new Tile(2867, 3148, 0),
-                    new Tile(2882, 3145, 0),
-                    new Tile(2900, 3162, 0),
-                    new Tile(2924, 3177, 0)
+                    new Tile(2852, 3143, 0),
+                    new Tile(2860, 3148, 0),
+                    new Tile(2870, 3150, 0),
+                    new Tile(2880, 3147, 0),
+                    new Tile(2890, 3151, 0),
+                    new Tile(2899, 3162, 0),
+                    new Tile(2911, 3170, 0),
+                    new Tile(2924, 3177, 0),
             },
             new Tile[]{
                     new Tile(2924, 3177, 0),
-                    new Tile(2900, 3162, 0),
-                    new Tile(2882, 3145, 0),
-                    new Tile(2867, 3148, 0),
-                    new Tile(2852, 3144, 0)
+                    new Tile(2911, 3170, 0),
+                    new Tile(2899, 3162, 0),
+                    new Tile(2890, 3151, 0),
+                    new Tile(2880, 3147, 0),
+                    new Tile(2870, 3150, 0),
+                    new Tile(2860, 3148, 0),
+                    new Tile(2852, 3143, 0)
             }
     ),
     PISCATORIS(new Fish[]{Fish.MONKFISH},

@@ -2,7 +2,7 @@ package us.scriptwith.scripts.fishing.jobs.interactive;
 
 import org.powerbot.script.wrappers.Actor;
 import org.powerbot.script.wrappers.Npc;
-import us.scriptwith.core.job.Job;
+import us.scriptwith.core.script.generic.Interaction;
 import us.scriptwith.scripts.fishing.Fishing;
 
 /**
@@ -10,9 +10,9 @@ import us.scriptwith.scripts.fishing.Fishing;
  * Time: 4:46 PM
  */
 
-public class CatchFish extends Job<Fishing> {
+public class CatchFish extends Interaction<Fishing, Npc> {
     public CatchFish(Fishing script) {
-        super(script);
+        super(script, script.getContext().npcs, script.fish.getSpotIds(), script.fish.getAction());
     }
 
     @Override
@@ -28,18 +28,5 @@ public class CatchFish extends Job<Fishing> {
                 && ctx.backpack.select().count() < 28
                 && !ctx.npcs.select().id(script.fish.getSpotIds()).isEmpty()
                 && (interacting == null || !interacting.isValid());
-    }
-
-    @Override
-    public void execute() {
-        for (Npc fishingSpot : ctx.npcs.nearest().first()) {
-            if (!fishingSpot.isOnScreen()) {
-                ctx.movement.stepTowards(fishingSpot);
-                ctx.camera.turnTo(fishingSpot);
-            } else {
-                fishingSpot.interact(script.fish.getAction());
-            }
-            sleep(500, 750);
-        }
     }
 }

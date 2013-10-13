@@ -2,7 +2,7 @@ package us.scriptwith.scripts.fishing.jobs.traversal;
 
 import org.powerbot.script.wrappers.Interactive;
 import org.powerbot.script.wrappers.TilePath;
-import us.scriptwith.core.job.Job;
+import us.scriptwith.core.script.generic.Traversal;
 import us.scriptwith.scripts.fishing.Fishing;
 
 /**
@@ -10,12 +10,9 @@ import us.scriptwith.scripts.fishing.Fishing;
  * Time: 3:06 PM
  */
 
-public class ToBank extends Job<Fishing> {
-    private final TilePath path;
-
+public class ToBank extends Traversal<Fishing> {
     public ToBank(Fishing script, TilePath path) {
-        super(script);
-        this.path = path;
+        super(script, path);
     }
 
     @Override
@@ -28,12 +25,5 @@ public class ToBank extends Job<Fishing> {
         final Interactive bank = script.methods.nearestBanker();
         return (!script.methods.hasBait() || ctx.backpack.select().count() == 28)
                 && (!bank.isValid() || !bank.isOnScreen());
-    }
-
-    @Override
-    public void execute() {
-        if (path.randomize(2, 2).traverse() || ctx.movement.stepTowards(path.getEnd())) {
-            sleep(350, 500);
-        }
     }
 }

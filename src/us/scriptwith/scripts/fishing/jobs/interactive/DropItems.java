@@ -34,9 +34,9 @@ public class DropItems extends Job<Fishing> {
 
     @Override
     public void execute() {
-        for (Item i : ctx.backpack) {
+        for (Item i : ctx.backpack.select().id(junkIds)) {
             if (ctx.backpack.scroll(i) && i.interact("Drop")) {
-                sleep(250, 300);
+                sleep(350, 500);
             }
         }
     }

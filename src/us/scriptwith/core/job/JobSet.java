@@ -3,11 +3,11 @@ package us.scriptwith.core.job;
 import us.scriptwith.core.script.Script;
 
 /**
- * Author: Saleh Jafar
+ * Author: Aadil Farouk
  * Date: 7/15/13
  * Time: 10:45 PM
  *
- * COPYRIGHT 2013, Saleh Jafar
+ * COPYRIGHT 2013, AADIL FAROUK
  */
 
 /**
