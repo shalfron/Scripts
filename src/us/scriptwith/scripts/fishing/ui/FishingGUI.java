@@ -2,11 +2,13 @@ package us.scriptwith.scripts.fishing.ui;
 
 import org.powerbot.script.wrappers.TilePath;
 import us.scriptwith.scripts.fishing.Fishing;
+import us.scriptwith.scripts.fishing.jobs.Stop;
 import us.scriptwith.scripts.fishing.jobs.banking.CloseBank;
 import us.scriptwith.scripts.fishing.jobs.banking.DepositInventory;
 import us.scriptwith.scripts.fishing.jobs.banking.OpenBank;
 import us.scriptwith.scripts.fishing.jobs.interactive.CatchFish;
 import us.scriptwith.scripts.fishing.jobs.interactive.DropItems;
+import us.scriptwith.scripts.fishing.jobs.interactive.stiles.ExchangeStiles;
 import us.scriptwith.scripts.fishing.jobs.traversal.ToBank;
 import us.scriptwith.scripts.fishing.jobs.traversal.ToSpot;
 import us.scriptwith.scripts.fishing.resources.Fish;
@@ -19,73 +21,82 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * Date: 9/16/13
- * Time: 9:07 PM
+ * Date: 10/12/13
+ * Time: 2:10 AM
  */
 
-/**
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-
-public class FishingGUI extends JPanel {
+public class FishingGUI extends JFrame {
     public FishingGUI(final Fishing script) {
-        super(new GridLayout(4, 0));
+        super("Auto Fisher");
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
-        final JFrame frame = new JFrame("Fisher");
-        final JComboBox<Location> locations = new JComboBox<>(Location.values());
-        final JComboBox<Fish> fish = new JComboBox<>(Fish.values());
-        final JCheckBox bank = new JCheckBox("Bank");
-        final JButton start = new JButton("Start");
-
-        locations.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                final Location location = (Location) locations.getSelectedItem();
-                fish.setModel(new JComboBox<>(location.getFish()).getModel());
-            }
-        });
-
-        start.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                script.location = (Location) locations.getSelectedItem();
-                script.fish = (Fish) fish.getSelectedItem();
-
-                if (bank.isSelected()) {
-                    script.container().submit(
-                            new OpenBank(script),
-                            new DepositInventory(script), new CloseBank(script),
-                            new ToBank(script, new TilePath(script.getContext(), script.location.getPathToBank()))
-                    );
-                } else {
-                    script.container().submit(new DropItems(script, Fish.allFishIds()));
+        final JComboBox<Fish> fish = new JComboBox<Fish>(Location.values()[0].getFish()) {{
+            setBounds(45, 40, 150, 20);
+        }};
+        final JComboBox<Location> locations = new JComboBox<Location>(Location.values()) {{
+            setBounds(45, 10, 150, 20);
+            addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    final Location location = (Location) getSelectedItem();
+                    fish.setModel(new JComboBox<>(location.getFish()).getModel());
                 }
+            });
+        }};
+        final JCheckBox bank = new JCheckBox("Bank") {{
+            setBounds(45, 70, 75, 20);
+            setPreferredSize(new Dimension(50, 20));
+        }};
+        final JCheckBox stiles = new JCheckBox("Stiles") {{
+            setBounds(130, 70, 75, 20);
+            setPreferredSize(new Dimension(50, 20));
+        }};
+        final JButton start = new JButton("Start") {{
+            setBounds(80, 105, 75, 20);
+            addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    script.location = (Location) locations.getSelectedItem();
+                    script.fish = (Fish) fish.getSelectedItem();
 
-                script.container().submit(new CatchFish(script),
-                        new ToSpot(script, new TilePath(script.getContext(), script.location.getPathToSpot())),
-                        new RandomCameraMovement<>(script)
-                );
-                frame.dispose();
-            }
-        });
+                    if (bank.isSelected()) {
+                        script.container().submit(
+                                new OpenBank(script),
+                                new DepositInventory(script), new CloseBank(script), new DepositInventory(script),
+                                new ToBank(script, new TilePath(script.getContext(), script.location.getPathToBank()))
+                        );
+                    } else if (stiles.isSelected()) {
+                        script.container().submit(
+                                new ToBank(script, new TilePath(script.getContext(), script.location.getPathToBank())),
+                                new ExchangeStiles(script)
+                        );
 
-        this.add(locations);
-        this.add(fish);
-        this.add(bank);
-        this.add(start);
+                    } else {
+                        script.container().submit(new DropItems(script, Fish.allFishIds()));
+                    }
 
-        frame.setSize(300, 150);
-        frame.setContentPane(this);
-        frame.setVisible(true);
-        frame.setLocationRelativeTo(null);
+                    script.container().submit(new CatchFish(script),
+                            new ToSpot(script, new TilePath(script.getContext(), script.location.getPathToSpot())),
+                            new RandomCameraMovement<>(script),
+                            new Stop(script)
+                    );
+                    dispose();
+                }
+            });
+        }};
+
+        final JPanel content = new JPanel(null) {{
+            add(locations);
+            add(fish);
+            add(bank);
+            add(stiles);
+            add(start);
+        }};
+
+        this.setSize(250, 175);
+        this.setContentPane(content);
+        this.setLocationRelativeTo(null);
+        this.setResizable(false);
+        this.setVisible(true);
     }
 }

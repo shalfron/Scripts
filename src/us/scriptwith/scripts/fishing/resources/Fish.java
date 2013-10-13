@@ -5,28 +5,15 @@ package us.scriptwith.scripts.fishing.resources;
  * Time: 4:47 PM
  */
 
-/**
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-
 public enum Fish {
     // action to fish, item id, bait id (bait, feathers, etc), fishing spot Npc IDs
     SHRIMP("Net", 317, -1, 327),
     SARDINE("Bait", 327, 313, 327),
     HERRING("Bait", 345, 313, 327),
     ANCHOVIES("Net", 321, -1, 327),
-    TROUT("Lure", 335, 314, 329),
-    PIKE("Bait", 349, 313, 329),
-    SALMON("Lure", 331, 314, 329),
+    TROUT("Lure", 335, 314, 328, 329),
+    PIKE("Bait", 349, 313, 328, 329),
+    SALMON("Lure", 331, 314, 328, 329),
     TUNA("Harpoon", 359, -1, 324),
     LOBSTER("Cage", 377, -1, 324),
     SWORDFISH("Harpoon", 371, -1, 324),
