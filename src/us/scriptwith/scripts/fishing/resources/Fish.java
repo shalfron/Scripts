@@ -15,7 +15,7 @@ public enum Fish {
     PIKE("Bait", 349, 313, 328, 329),
     SALMON("Lure", 331, 314, 328, 329),
     TUNA("Harpoon", 359, -1, 324),
-    LOBSTER("Cage", 377, -1, 324),
+    LOBSTER("Cage", 377, -1, 324, 321),
     SWORDFISH("Harpoon", 371, -1, 324),
     MONKFISH("Net", 7944, -1, 3848),
     SHARK("Harpoon", 383, -1, 313, 322);

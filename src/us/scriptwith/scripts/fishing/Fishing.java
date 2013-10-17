@@ -18,7 +18,7 @@ import java.awt.*;
 @Manifest(authors = "Coma",
         description = "Catches fish",
         name = "Auto Fisher",
-        version = 1.03,
+        version = 1.04,
         topic = 1103810)
 public class Fishing extends Script {
     public Fish fish;

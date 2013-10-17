@@ -1,5 +1,6 @@
 package us.scriptwith.scripts.flax.jobs;
 
+import org.powerbot.script.lang.BasicNamedQuery;
 import org.powerbot.script.wrappers.GameObject;
 import us.scriptwith.core.script.generic.Interaction;
 import us.scriptwith.scripts.flax.Flax;
@@ -9,9 +10,9 @@ import us.scriptwith.scripts.flax.Flax;
  * Time: 12:02 AM
  */
 
-public class PickFlax extends Interaction<Flax, GameObject> {
+public class PickFlax extends Interaction<Flax, GameObject, BasicNamedQuery<GameObject>> {
     public PickFlax(Flax script) {
-        super(script, script.getContext().objects, new int[]{2646}, "Pick");
+        super(script, script.getContext().objects, "Pick", 2646);
     }
 
     @Override

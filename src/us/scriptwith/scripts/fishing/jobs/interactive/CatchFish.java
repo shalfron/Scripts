@@ -1,5 +1,6 @@
 package us.scriptwith.scripts.fishing.jobs.interactive;
 
+import org.powerbot.script.lang.BasicNamedQuery;
 import org.powerbot.script.wrappers.Actor;
 import org.powerbot.script.wrappers.Npc;
 import us.scriptwith.core.script.generic.Interaction;
@@ -10,9 +11,9 @@ import us.scriptwith.scripts.fishing.Fishing;
  * Time: 4:46 PM
  */
 
-public class CatchFish extends Interaction<Fishing, Npc> {
+public class CatchFish extends Interaction<Fishing, Npc, BasicNamedQuery<Npc>> {
     public CatchFish(Fishing script) {
-        super(script, script.getContext().npcs, script.fish.getSpotIds(), script.fish.getAction());
+        super(script, script.getContext().npcs, script.fish.getAction(), script.fish.getSpotIds());
     }
 
     @Override

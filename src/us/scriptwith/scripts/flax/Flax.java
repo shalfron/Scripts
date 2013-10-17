@@ -7,13 +7,14 @@ import us.scriptwith.scripts.flax.jobs.PickFlax;
 import us.scriptwith.scripts.flax.jobs.TraverseToBank;
 import us.scriptwith.scripts.flax.jobs.TraverseToFlax;
 import us.scriptwith.util.Methods;
+import us.scriptwith.util.defined.RandomCameraMovement;
 
 /**
  * Date: 10/17/13
  * Time: 12:01 AM
  */
 
-@Manifest(name = "Auto Flaxer", authors = "Coma", description = "Pick flax",
+@Manifest(name = "Auto Flaxer", authors = "Coma", description = "Picks flax",
         version = 1.0, topic = 1105723)
 public class Flax extends Script {
     public Methods methods;
@@ -25,7 +26,14 @@ public class Flax extends Script {
                 new PickFlax(this),
                 new TraverseToFlax(this),
                 new TraverseToBank(this),
-                new Bank(this)
+                new Bank(this),
+                new RandomCameraMovement<>(this)
         );
+    }
+
+    @Override
+    public int poll() {
+        ctx.camera.setPitch(true);
+        return super.poll();
     }
 }

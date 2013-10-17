@@ -1,6 +1,6 @@
 package us.scriptwith.core.script.generic;
 
-import org.powerbot.script.lang.BasicNamedQuery;
+import org.powerbot.script.lang.AbstractQuery;
 import org.powerbot.script.lang.Filter;
 import org.powerbot.script.util.Condition;
 import org.powerbot.script.wrappers.Identifiable;
@@ -13,23 +13,25 @@ import us.scriptwith.core.script.Script;
 import java.util.concurrent.Callable;
 
 /**
- * Date: 9/29/13
- * Time: 9:52 PM
+ * Date: 10/17/13
+ * Time: 4:16 PM
  */
 
-public abstract class Interaction
-        <T extends Script, N extends Interactive & Locatable & Identifiable & Nameable>
+public abstract class Interaction<T extends Script,
+        N extends Interactive & Locatable & Identifiable & Nameable,
+        K extends AbstractQuery<K, N> & Locatable.Query<K> & Identifiable.Query<K> & Nameable.Query<K>>
         extends Job<T>
         implements Callable<Boolean> {
-    public int[] ids;
-    private String action;
-    private BasicNamedQuery<N> query;
 
-    public Interaction(T script, BasicNamedQuery<N> query, int[] ids, String action) {
+    private K query;
+    private String action;
+    public int[] ids;
+
+    public Interaction(T script, K query, String action, int... ids) {
         super(script);
+        this.query = query;
         this.ids = ids;
         this.action = action;
-        this.query = query;
     }
 
     @Override
@@ -52,7 +54,6 @@ public abstract class Interaction
                     return entity.isOnScreen() || !ctx.players.local().isInMotion();
                 }
             });
-
         }
 
         if (entity.interact(action)) {
@@ -70,6 +71,13 @@ public abstract class Interaction
         @Override
         public boolean accept(N n) {
             return n.isOnScreen();
+        }
+    };
+
+    public Filter<N> reachable = new Filter<N>() {
+        @Override
+        public boolean accept(N n) {
+            return n.getLocation().getMatrix(ctx).isReachable();
         }
     };
 }
