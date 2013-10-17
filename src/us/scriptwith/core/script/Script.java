@@ -25,7 +25,7 @@ public abstract class Script extends PollingScript {
     public int poll() {
         final Job j = container.get();
         if (j != null) {
-            //System.out.println("Executing " + j.getClass().getSimpleName());
+            System.out.println("Executing " + j.getClass().getSimpleName());
             j.execute();
             return j.delay();
         }

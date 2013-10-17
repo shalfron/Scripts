@@ -57,6 +57,7 @@ public class JobContainer implements Comparator<Job> {
 
     public Job get() {
         for (Job j : jobList) {
+            //System.out.println("Checking " + j.getClass().getSimpleName());
             if (j.activate()) {
                 return j;
             }

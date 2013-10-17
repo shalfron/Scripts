@@ -15,7 +15,7 @@ import java.util.concurrent.Callable;
  */
 
 public abstract class Traversal<T extends Script> extends Job<T> implements Callable<Boolean> {
-    private final Path path;
+    public final Path path;
 
     public Traversal(T script, Path path) {
         super(script);

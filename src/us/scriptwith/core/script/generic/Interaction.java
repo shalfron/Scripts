@@ -1,6 +1,7 @@
 package us.scriptwith.core.script.generic;
 
 import org.powerbot.script.lang.BasicNamedQuery;
+import org.powerbot.script.lang.Filter;
 import org.powerbot.script.util.Condition;
 import org.powerbot.script.wrappers.Identifiable;
 import org.powerbot.script.wrappers.Interactive;
@@ -33,7 +34,14 @@ public abstract class Interaction
 
     @Override
     public void execute() {
-        final N entity = query.select().id(ids).nearest().poll();
+        interact(query.select().id(ids).nearest().poll());
+    }
+
+    public void interact(final N entity) {
+        if (!entity.isValid()) {
+            return;
+        }
+
         if (!entity.isOnScreen()) {
             ctx.movement.stepTowards(entity);
             ctx.camera.turnTo(entity);
@@ -47,7 +55,7 @@ public abstract class Interaction
 
         }
 
-        if (entity.isValid() && entity.interact(action)) {
+        if (entity.interact(action)) {
             sleep(350, 500);
             Condition.wait(this, 500, 10);
         }
@@ -57,4 +65,11 @@ public abstract class Interaction
     public Boolean call() throws Exception {
         return true;
     }
+
+    public Filter<N> onScreen = new Filter<N>() {
+        @Override
+        public boolean accept(N n) {
+            return n.isOnScreen();
+        }
+    };
 }
