@@ -15,6 +15,7 @@ public abstract class Script extends PollingScript {
     private JobContainer container;
     private InventoryMonitor monitor;
     private PriceWrapper prices;
+    private String status = "";
 
     public Script() {
         this.container = new JobContainer();
@@ -23,9 +24,19 @@ public abstract class Script extends PollingScript {
 
     @Override
     public int poll() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if (monitor != null && !ctx.bank.isOpen() && monitor.hasChanged()) {
+                    monitor.onChange();
+                }
+            }
+        }).start();
+
         final Job j = container.get();
         if (j != null) {
-            System.out.println("Executing " + j.getClass().getSimpleName());
+            //System.out.println("Executing " + j.getClass().getSimpleName());
+            status = j.status();
             j.execute();
             return j.delay();
         }
@@ -34,6 +45,7 @@ public abstract class Script extends PollingScript {
 
     public void setMonitor(InventoryMonitor monitor) {
         this.monitor = monitor;
+        monitor.update();
     }
 
     public InventoryMonitor monitor() {
@@ -46,5 +58,13 @@ public abstract class Script extends PollingScript {
 
     public PriceWrapper prices() {
         return this.prices;
+    }
+
+    public String status() {
+        return this.status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

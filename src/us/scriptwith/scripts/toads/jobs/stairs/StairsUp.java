@@ -3,7 +3,7 @@ package us.scriptwith.scripts.toads.jobs.stairs;
 import org.powerbot.script.lang.BasicNamedQuery;
 import org.powerbot.script.wrappers.GameObject;
 import org.powerbot.script.wrappers.Tile;
-import us.scriptwith.core.script.generic.Interaction;
+import us.scriptwith.core.job.impl.Interaction;
 import us.scriptwith.scripts.toads.SwampToads;
 
 /**
@@ -14,6 +14,11 @@ import us.scriptwith.scripts.toads.SwampToads;
 public class StairsUp extends Interaction<SwampToads, GameObject, BasicNamedQuery<GameObject>> {
     public StairsUp(SwampToads script) {
         super(script, script.getContext().objects, "Climb-up", 69505);
+    }
+
+    @Override
+    public String status() {
+        return "Climbing stairs";
     }
 
     @Override

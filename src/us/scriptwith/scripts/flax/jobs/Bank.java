@@ -15,6 +15,11 @@ public class Bank extends Job<Flax> {
     }
 
     @Override
+    public String status() {
+        return "Banking";
+    }
+
+    @Override
     public boolean activate() {
         final Interactive banker = script.methods.nearestBanker();
         return banker.isValid() && banker.isOnScreen() && ctx.backpack.select().count() == 28;

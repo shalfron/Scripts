@@ -28,6 +28,7 @@ public abstract class InventoryMonitor extends MethodProvider {
     }
 
     public void update() {
+        System.out.println("Updating item cache");
         cache = new Item[ctx.backpack.select().count()];
         int i = 0;
         for (Item item : ctx.backpack) {

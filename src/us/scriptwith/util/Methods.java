@@ -21,12 +21,12 @@ public class Methods extends MethodProvider {
         return 100 * (currentHealth() / maxHealth());
     }
 
-    public double currentHealth() {
+    public double maxHealth() {
         final String s = healthString();
         return Double.parseDouble(s.substring(s.indexOf("/") + 1));
     }
 
-    public double maxHealth() {
+    public double currentHealth() {
         final String s = healthString();
         return Double.parseDouble(s.substring(0, s.indexOf("/")));
     }

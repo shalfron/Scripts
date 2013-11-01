@@ -1,17 +1,13 @@
 package us.scriptwith.core.script;
 
 import org.powerbot.script.methods.MethodContext;
-import org.powerbot.script.util.Timer;
 
 import java.awt.*;
 import java.text.DecimalFormat;
 
 /**
- * Author: Aadil Farouk
  * Date: 8/22/13
  * Time: 10:41 PM
- * <p/>
- * COPYRIGHT 2013, AADIL FAROUK
  */
 
 public class Painter {
@@ -33,8 +29,20 @@ public class Painter {
         return this.format.format(i);
     }
 
-    public int getExperienceToLevel(MethodContext ctx, int skill, int level) {
+    public String formatTime(final long time) {
+        final int sec = (int) (time / 1000), h = sec / 3600, m = sec / 60 % 60, s = sec % 60;
+        return (h < 10 ? "0" + h : h) + ":" + (m < 10 ? "0" + m : m) + ":" + (s < 10 ? "0" + s : s);
+    }
+
+    public int getExperienceToLevel(final MethodContext ctx, final int skill, final int level) {
         return ctx.skills.getExperienceAt(level) - ctx.skills.getExperience(skill);
+    }
+
+    public String getTimeToLevel(final MethodContext ctx, final int skill, final int goal, final int xpPerHour) {
+        if (xpPerHour < 1) {
+            return formatTime(0L);
+        }
+        return formatTime((long) (getExperienceToLevel(ctx, skill, goal) * 3600000D / xpPerHour));
     }
 
     public double getHourlyRate(final int base, final long runTime) {
@@ -42,14 +50,6 @@ public class Painter {
             return 0;
         }
         return (base * 3600000D) / (runTime);
-    }
-
-    public String getTimeToLevel(MethodContext ctx, final int skill, final int goal, final int xpPerHour) {
-        if (xpPerHour < 1) {
-            return Timer.format(0L);
-        }
-        return Timer.format((long)
-                (getExperienceToLevel(ctx, skill, goal) * 3600000D / xpPerHour));
     }
 
     private final AlphaComposite background = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, .75f);
@@ -82,11 +82,11 @@ public class Painter {
             g.drawLine(x, y + 5, x, y - 5);
         }
 
-        final int w1 = fm.stringWidth(name);
-        final int w2 = fm.stringWidth(version);
+        final int w1 = fm.stringWidth(version);
+        final int w2 = fm.stringWidth(name);
 
-        g.drawString(name, (180 / 2) - (w1 / 2), 20);
-        g.drawString(version, (180 / 2) - (w2 / 2), 40);
+        g.drawString(version, (180 / 2) + 5 - ((w1 / 2)), 20);
+        g.drawString(name, (180 / 2) + 5 - ((w2 / 2)), 40);
         g.drawLine(15, 45, 175, 45);
 
         g.setFont(stats);
@@ -110,6 +110,9 @@ public class Painter {
             this(value, 0);
         }
 
+        public PaintProperty() {
+            this("");
+        }
 
         public PaintProperty value(String value) {
             this.value = value;

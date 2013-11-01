@@ -1,4 +1,4 @@
-package us.scriptwith.util.defined;
+package us.scriptwith.util.jobs;
 
 import org.powerbot.script.wrappers.GroundItem;
 import us.scriptwith.core.job.Job;

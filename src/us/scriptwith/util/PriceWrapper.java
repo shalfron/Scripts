@@ -11,10 +11,8 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * Author: Aadil Farouk
  * Date: 5/12/13
  * Time: 3:40 PM
- * <p/>
  * Updated: 26/08/13
  */
 
@@ -22,10 +20,12 @@ public class PriceWrapper {
     private HashMap<Integer, Integer> priceMap = new HashMap<>();
 
     public PriceWrapper(final int... ids) {
+        this();
         add(ids);
     }
 
     public PriceWrapper() {
+        priceMap.put(95, 1);
     }
 
     public void put(final int id, final int value) {

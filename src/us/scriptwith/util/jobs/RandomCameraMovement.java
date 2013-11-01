@@ -1,4 +1,4 @@
-package us.scriptwith.util.defined;
+package us.scriptwith.util.jobs;
 
 import org.powerbot.script.wrappers.GameObject;
 import org.powerbot.script.wrappers.Npc;
@@ -11,6 +11,9 @@ import us.scriptwith.core.script.Script;
  */
 
 public class RandomCameraMovement<T extends Script> extends Job<T> {
+    private long last = 0;
+    private String status = "";
+
     public RandomCameraMovement(T ctx) {
         super(ctx);
     }
@@ -22,11 +25,13 @@ public class RandomCameraMovement<T extends Script> extends Job<T> {
 
     @Override
     public boolean activate() {
-        return Math.random() > .95;
+        status = script.status();
+        return System.currentTimeMillis() - last > 60000 && Math.random() > .95;
     }
 
     @Override
     public void execute() {
+        last = System.currentTimeMillis();
         if (Math.random() > .5) {
             for (Npc n : ctx.npcs.select().shuffle().first()) {
                 ctx.camera.turnTo(n);
@@ -40,6 +45,6 @@ public class RandomCameraMovement<T extends Script> extends Job<T> {
 
     @Override
     public String status() {
-        return "Camera Antipattern";
+        return status;
     }
 }

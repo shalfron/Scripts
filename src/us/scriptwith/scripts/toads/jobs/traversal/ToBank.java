@@ -3,7 +3,7 @@ package us.scriptwith.scripts.toads.jobs.traversal;
 import org.powerbot.script.wrappers.GameObject;
 import org.powerbot.script.wrappers.Tile;
 import org.powerbot.script.wrappers.TilePath;
-import us.scriptwith.core.script.generic.Traversal;
+import us.scriptwith.core.job.impl.Traversal;
 import us.scriptwith.scripts.toads.SwampToads;
 
 /**
@@ -20,6 +20,11 @@ public class ToBank extends Traversal<SwampToads> {
                 new Tile(2437, 3451, 0),
                 new Tile(2444, 3433, 0)
         }));
+    }
+
+    @Override
+    public String status() {
+        return "Walking to bank";
     }
 
     @Override

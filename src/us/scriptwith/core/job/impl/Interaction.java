@@ -1,4 +1,4 @@
-package us.scriptwith.core.script.generic;
+package us.scriptwith.core.job.impl;
 
 import org.powerbot.script.lang.AbstractQuery;
 import org.powerbot.script.lang.Filter;
@@ -40,6 +40,7 @@ public abstract class Interaction<T extends Script,
     }
 
     public void interact(final N entity) {
+        ctx.antipatterns.setEnabled(false);
         if (!entity.isValid()) {
             return;
         }
@@ -55,11 +56,10 @@ public abstract class Interaction<T extends Script,
                 }
             });
         }
-
         if (entity.interact(action)) {
-            sleep(350, 500);
-            Condition.wait(this, 500, 10);
+            Condition.wait(this, 250, 15);
         }
+        ctx.antipatterns.setEnabled(true);
     }
 
     @Override

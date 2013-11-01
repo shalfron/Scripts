@@ -3,7 +3,7 @@ package us.scriptwith.scripts.flax.jobs;
 import org.powerbot.script.wrappers.GameObject;
 import org.powerbot.script.wrappers.Tile;
 import org.powerbot.script.wrappers.TilePath;
-import us.scriptwith.core.script.generic.Traversal;
+import us.scriptwith.core.job.impl.Traversal;
 import us.scriptwith.scripts.flax.Flax;
 
 /**
@@ -19,6 +19,11 @@ public class TraverseToFlax extends Traversal<Flax> {
                 new Tile(2725, 3457, 0),
                 new Tile(2742, 3445, 0)
         }));
+    }
+
+    @Override
+    public String status() {
+        return "Walking to flax";
     }
 
     @Override

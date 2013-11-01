@@ -1,9 +1,10 @@
-package us.scriptwith.core.script.generic;
+package us.scriptwith.core.job.impl;
 
 import org.powerbot.script.util.Condition;
 import org.powerbot.script.wrappers.Locatable;
 import org.powerbot.script.wrappers.Path;
 import org.powerbot.script.wrappers.Player;
+import org.powerbot.script.wrappers.Tile;
 import us.scriptwith.core.job.Job;
 import us.scriptwith.core.script.Script;
 
@@ -28,8 +29,14 @@ public abstract class Traversal<T extends Script> extends Job<T> implements Call
 
     @Override
     public void execute() {
-        if (path.traverse() || ctx.movement.stepTowards(path.getEnd())) {
-            Condition.wait(this, 350, 10);
+        final Tile step = path.getNext();
+        final Tile next = ctx.movement.getClosestOnMap(
+                step != null && !ctx.players.local().getLocation().equals(step)
+                        ? step : path.getEnd()
+        );
+        if (ctx.movement.stepTowards(next)) {
+            sleep(350, 500);
+            Condition.wait(this, 500, 10);
         }
     }
 
